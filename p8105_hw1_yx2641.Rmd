@@ -4,4 +4,67 @@ author: Yining Xiang
 output: github_document
 ---
 
-Problem 1
+```{r}
+library(tidyverse)
+```
+
+
+## Problem 1
+
+create the date frame described
+
+```{r}
+prob1_df=
+  tibble(
+    samp = rnorm(10),
+    samp_gt_0 = samp > 0,
+    char_vec = c("a", "b", "c", "d", "e", "f", "g", "h", "i", "j"),
+    factor_vec = factor(c("low", "low", "low", "mod", "mod", "mod", "mod", "high", "high", "high"))
+    )
+```
+
+converting between logical vectors, numeric and factors
+
+```{r}
+as.numeric(pull(prob1_df,samp_gt_0))*pull(prob1_df,samp)
+
+as.factor(pull(prob1_df,samp_gt_0))*pull(prob1_df,samp)
+
+lv_to_f=as.factor(pull(prob1_df,samp_gt_0))
+as.numeric(lv_to_f)*pull(prob1_df,samp)
+```
+
+
+## Problem 2
+
+load the penguins dataset
+
+```{r}
+data("penguins", package = "palmerpenguins")
+
+```
+### Part 1
+
+1. names of the data: species, island, bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, sex, year
+2. the size of the data is 344 rows and 8 columns
+3. the flipper length mean is 200.9mm
+
+```{r}
+penguins
+
+nrow(penguins)
+ncol(penguins)
+
+summary(penguins)
+```
+
+### Part 2
+
+Make a scatterplot 
+
+```{r}
+ggplot(penguins, aes(x = bill_length_mm, y = flipper_length_mm, color = species)) + geom_point()
+
+ggsave("p8105_hw1_plot.pdf")
+```
+
